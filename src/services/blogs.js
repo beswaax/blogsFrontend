@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = "http://localhost:3001/blogs";
+const baseUrl = "https://warm-castle-09064.herokuapp.com/blogs";
 
 const getAll = async () => {
   const response = await axios.get(baseUrl);
