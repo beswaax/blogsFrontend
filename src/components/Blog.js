@@ -5,7 +5,7 @@ const useStyles = makeStyles((theme) => ({
   section: {},
 }));
 
-const Blog = ({ blog, updateBlog, removeBlog, canRemove }) => {
+const Blog = ({ blog, updateBlog, removeBlog }) => {
   const classes = useStyles();
   const [showDetails, setShowDetails] = useState(false);
 
@@ -26,14 +26,28 @@ const Blog = ({ blog, updateBlog, removeBlog, canRemove }) => {
           <Grid item>
             <div>
               <Typography>{blog.title}</Typography>
-              <Button
-                disableRipple
-                variant="contained"
-                style={{ backgroundColor: "#3d3d3d", color: "white" }}
-                onClick={() => setShowDetails(!showDetails)}
-              >
-                {showDetails ? "hide" : "view"}
-              </Button>
+              <Grid container spacing={1}>
+                <Grid item>
+                  <Button
+                    disableRipple
+                    variant="contained"
+                    style={{ backgroundColor: "#3d3d3d", color: "white" }}
+                    onClick={() => setShowDetails(!showDetails)}
+                  >
+                    {showDetails ? "hide" : "view"}
+                  </Button>
+                </Grid>
+                <Grid item>
+                  <Button
+                    disableRipple
+                    variant="contained"
+                    style={{ backgroundColor: "#3d3d3d", color: "white" }}
+                    onClick={handleClickRemove}
+                  >
+                    remove
+                  </Button>
+                </Grid>
+              </Grid>
             </div>
           </Grid>
           <Grid item>
@@ -42,18 +56,15 @@ const Blog = ({ blog, updateBlog, removeBlog, canRemove }) => {
                 <p>URL: {blog.url}</p>
                 <p>Author: {blog.author} </p>
                 <p>Blog created by: {blog.user.name}</p>
-                {!canRemove(blog) ? null : (
-                  <p>
-                    <Button
-                      disableRipple
-                      variant="contained"
-                      style={{ backgroundColor: "#3d3d3d", color: "white" }}
-                      onClick={handleClickRemove}
-                    >
-                      remove
-                    </Button>
-                  </p>
-                )}
+                {/* <p>Likes: {blog.likes}</p>
+                <Button
+                  disableRipple
+                  variant="contained"
+                  style={{ backgroundColor: "#3d3d3d", color: "white" }}
+                  onClick={handleClickLike}
+                >
+                  Add a Like
+                </Button> */}
               </div>
             )}
           </Grid>

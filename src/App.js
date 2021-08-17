@@ -61,9 +61,10 @@ const App = () => {
     try {
       await blogService.create(
         {
-          title,
-          author,
-          url,
+          title: title,
+          author: author,
+          url: url,
+          likes: 0,
         },
         token
       );
@@ -85,7 +86,8 @@ const App = () => {
 
   const updateBlog = async (blog) => {
     try {
-      await blogService.update(blog, token);
+      const response = await blogService.update(blog, blog.id);
+      console.log(response);
 
       setSuccessMessage(`updated blog ${blog.title} by ${blog.author}`);
       setTimeout(() => setSuccessMessage(null), 5000);
@@ -94,7 +96,7 @@ const App = () => {
 
       return true;
     } catch (exception) {
-      setErrorMessage("wrong credentials");
+      setErrorMessage("something went wrong");
       setTimeout(() => setErrorMessage(null), 5000);
 
       return false;
@@ -115,7 +117,7 @@ const App = () => {
 
       return true;
     } catch (exception) {
-      setErrorMessage("wrong credentials");
+      setErrorMessage("something went wrong");
       setTimeout(() => setErrorMessage(null), 5000);
 
       return false;
@@ -138,11 +140,9 @@ const App = () => {
       {user === null || (
         <LoginStatus user={user} clickLogoutHandler={clickLogoutHandler} />
       )}
-      {user !== null || (
-        <Togglable buttonLabel="login">
-          <LoginForm loginUser={loginUser} />
-        </Togglable>
-      )}
+      {user !== null || <LoginForm loginUser={loginUser} />}
+      {/* <Togglable buttonLabel="login">
+        </Togglable> */}
       {user === null || (
         <Container maxWidth="lg" style={{ paddingBottom: "2rem" }}>
           <Togglable buttonLabel="new blog" ref={noteFormRef}>

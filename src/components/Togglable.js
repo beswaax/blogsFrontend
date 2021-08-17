@@ -1,3 +1,4 @@
+import { Button, Container } from "@material-ui/core";
 import React, { useState, useImperativeHandle } from "react";
 
 export default React.forwardRef((props, ref) => {
@@ -14,12 +15,25 @@ export default React.forwardRef((props, ref) => {
   return (
     <div>
       {status ? (
-        <button onClick={toggleStatus}>{props.buttonLabel}</button>
+        <Button
+          align="center"
+          variant="contained"
+          color="primary"
+          onClick={toggleStatus}
+        >
+          {props.buttonLabel}
+        </Button>
       ) : null}
       {status ? null : (
         <div>
           {props.children}
-          <button onClick={toggleStatus}>cancel</button>
+          <Button
+            variant="contained"
+            style={{ backgroundColor: "#3d3d3d", color: "white" }}
+            onClick={toggleStatus}
+          >
+            cancel
+          </Button>
         </div>
       )}
     </div>
